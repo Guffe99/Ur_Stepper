@@ -29,6 +29,7 @@ void setup()
   pinMode(butt2Down,INPUT);
   pinMode(butt1Up, INPUT);
   pinMode(butt2Up, INPUT);
+  pinMode(buttStart, INPUT);
   pinMode(pot, INPUT);
   pinMode(ls, OUTPUT);
   pinMode(ts, OUTPUT);
@@ -47,7 +48,7 @@ void loop()
   int steps = Serial.parseInt();
   motor.step(steps);
   Serial.println(steps);
-  if(butt == HIGH){
+  if(pot == HIGH){
   	speed =+ 5;
   }
 
