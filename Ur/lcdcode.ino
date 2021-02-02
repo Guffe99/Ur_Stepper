@@ -34,4 +34,3 @@ void loop() {
   // print the number of seconds since reset:
   lcd.print(millis() / 1000);
 }
- ''

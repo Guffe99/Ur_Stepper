@@ -12,9 +12,15 @@ int ts = 12;
 int rs = 11;
 int bs = 10;
 int speed = 5;
+int RS = 9;
+int Enable = A4;
+int D4 = 8;
+int D5 = A1;
+int D6 = A2;
+int D7 = A3;
 
 Stepper motor = Stepper(315, ls, ts, rs, bs);
-LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
+LiquidCrystal lcd(9, A4, 8, A1, A2, A3);
 
 void setup()
 {
