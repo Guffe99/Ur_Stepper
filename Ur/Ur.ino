@@ -1,26 +1,38 @@
 #include <Stepper.h>
 #include <LiquidCrystal.h>
 
-int butt1Down = 6;
-int buttStart = 7;
-int butt2Down = 5;
-int butt1Up = 3;
-int butt2Up = 2;
-int pot = 0;
-int ls = 13;
-int ts = 12;
-int rs = 11;
-int bs = 10;
-int speed = 5;
-int RS = 9;
-int Enable = A4;
-int D4 = 8;
+// Define pins
+#define butt2Up 2
+#define butt1Up 3
+#define buzz 4
+#define butt2Down 5
+#define butt1Down 6
+#define buttStart 7
+#define D4 8
+#define RS 9
+#define bs 10
+#define rs 11
+#define ts 12
+#define ls 13
+
+// Hack some analog pins and stuff
+int pot = A0;
 int D5 = A1;
 int D6 = A2;
 int D7 = A3;
+int Enable = A4;
 
+// Define variables
+int speed = 5;
+int buttonPrevious = HIGH;
+float potvalue = 0;
+int x = 0;
+
+// Define LCD-monitor and stepper motor
 Stepper motor = Stepper(315, ls, ts, rs, bs);
 LiquidCrystal lcd(9, A4, 8, A1, A2, A3);
+
+// LiquidCrystal_I2C lcd = LiquidCrystal_I2C(0x27, 16, 2)
 
 void setup()
 {
@@ -44,7 +56,9 @@ void setup()
   // set up the LCD's number of columns and rows:
   lcd.begin(16, 2);
   // Print a message to the LCD.
-  lcd.print("hello, world!");
+  lcd.print("Hello Anime!");
+  lcd.setCursor (0,1);
+  lcd.print("From Nicher");
 }
 
 void loop()
@@ -56,8 +70,8 @@ void loop()
   if(pot == HIGH){
   	speed =+ 5;
   }
-  lcd.setCursor(0, 1);
-  // print the number of seconds since reset:
-  lcd.print(millis() / 1000);
+  // lcd.setCursor(0, 1);
+  // // print the number of seconds since reset:
+  // lcd.print(millis() / 1000);
 
 }
