@@ -1,4 +1,4 @@
-#include <stepper.h>
+#include <Stepper.h>
 #include <LiquidCrystal.h>
 
 int butt1Down = 6;
@@ -18,11 +18,11 @@ LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
 
 void setup()
 {
-  lcd.begin(16, 2)
-  pinMode(butt1Down, INPUT)
+  lcd.begin(16, 2);
+  pinMode(butt1Down, INPUT);
   pinMode(butt2Down,INPUT);
-  pinMode(butt1Up, INPUT)
-  pinMode(butt2Up, INPUT)
+  pinMode(butt1Up, INPUT);
+  pinMode(butt2Up, INPUT);
   pinMode(pot, INPUT);
   pinMode(ls, OUTPUT);
   pinMode(ts, OUTPUT);
