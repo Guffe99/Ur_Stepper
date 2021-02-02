@@ -2,6 +2,7 @@
 #include <LiquidCrystal.h>
 
 int butt1Down = 6;
+int buttStart = 7;
 int butt2Down = 5;
 int butt1Up = 3;
 int butt2Up = 2;
