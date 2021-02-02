@@ -40,6 +40,11 @@ void setup()
 
   Serial.begin(9600);
   motor.setSpeed(5);
+
+  // set up the LCD's number of columns and rows:
+  lcd.begin(16, 2);
+  // Print a message to the LCD.
+  lcd.print("hello, world!");
 }
 
 void loop()
@@ -51,5 +56,8 @@ void loop()
   if(pot == HIGH){
   	speed =+ 5;
   }
+  lcd.setCursor(0, 1);
+  // print the number of seconds since reset:
+  lcd.print(millis() / 1000);
 
 }
