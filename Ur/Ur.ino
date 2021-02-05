@@ -47,6 +47,8 @@ void setup()
   pinMode(ts, OUTPUT);
   pinMode(rs, OUTPUT);
   pinMode(bs, OUTPUT);
+  pinMode(motor, OUTPUT);
+  pinmode(lcd, OUTPUT);
 
   // while(!Serial);
 
@@ -69,10 +71,14 @@ void loop()
   // Serial.println(steps);
   if(pot == HIGH){
   	speed =+ 5;
+  print(time)
   }
 
 
   potValue = analogRead(pot);
+  time = potValue/10.23
+
+
 
   // lcd.setCursor(0, 1);
   // // print the number of seconds since reset:
