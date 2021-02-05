@@ -66,10 +66,14 @@ void loop()
   motor.setSpeed(speed);
   int steps = Serial.parseInt();
   motor.step(steps);
-  Serial.println(steps);
+  // Serial.println(steps);
   if(pot == HIGH){
   	speed =+ 5;
   }
+
+
+  potValue = analogRead(pot);
+
   // lcd.setCursor(0, 1);
   // // print the number of seconds since reset:
   // lcd.print(millis() / 1000);
