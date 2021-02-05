@@ -53,10 +53,10 @@ void setup()
   Serial.begin(9600);
   motor.setSpeed(5);
 
-  // set up the LCD's number of columns and rows:
+  // Set up the LCD's number of columns and rows:
   lcd.begin(16, 2);
   // Print a message to the LCD.
-  lcd.print("Hello Anime!");
+  lcd.print("Hello GUSTAVO!");
   lcd.setCursor (0,1);
   lcd.print("From Nicher");
 }
