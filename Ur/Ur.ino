@@ -1,6 +1,5 @@
-buttTime#include <Stepper.h>
+#include <Stepper.h>
 #include <LiquidCrystal.h>
-
 // Define pins
 #define butt2Up 2
 #define butt1Up 3
@@ -32,8 +31,6 @@ int x = 0;
 Stepper motor = Stepper(315, ls, ts, rs, bs);
 LiquidCrystal lcd(9, A4, 8, A1, A2, A3);
 
-// LiquidCrystal_I2C lcd = LiquidCrystal_I2C(0x27, 16, 2)
-
 void setup()
 {
   lcd.begin(16, 2);
@@ -47,10 +44,6 @@ void setup()
   pinMode(ts, OUTPUT);
   pinMode(rs, OUTPUT);
   pinMode(bs, OUTPUT);
-  pinMode(motor, OUTPUT);
-  pinmode(lcd, OUTPUT);
-
-  // while(!Serial);
 
   Serial.begin(9600);
   motor.setSpeed(5);
@@ -65,18 +58,15 @@ void setup()
 
 void loop()
 {
+
   motor.setSpeed(speed);
   int steps = Serial.parseInt();
   motor.step(steps);
   // Serial.println(steps);
   if(pot == HIGH){
   	speed =+ 5;
-  print(time)
+
   }
-
-
-  potValue = analogRead(pot);
-  time = potValue/10.23
 
 
 
@@ -85,3 +75,15 @@ void loop()
   // lcd.print(millis() / 1000);
 
 }
+
+
+
+
+
+int potValue = analogRead(pot);
+int time = map(potValue, 0, 1023, 0, 119);
+int min = floor(time/60);
+int sek = time - 60*min;
+
+// min = floor(t/60).
+// sek   =
