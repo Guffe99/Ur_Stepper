@@ -1,4 +1,4 @@
-#include <Stepper.h>
+buttTime#include <Stepper.h>
 #include <LiquidCrystal.h>
 
 // Define pins
@@ -7,7 +7,7 @@
 #define buzz 4
 #define butt2Down 5
 #define butt1Down 6
-#define buttStart 7
+#define buttTime 7
 #define D4 8
 #define RS 9
 #define bs 10
@@ -41,14 +41,14 @@ void setup()
   pinMode(butt2Down,INPUT);
   pinMode(butt1Up, INPUT);
   pinMode(butt2Up, INPUT);
-  pinMode(buttStart, INPUT);
+  pinMode(buttTime, INPUT);
   pinMode(pot, INPUT);
   pinMode(ls, OUTPUT);
   pinMode(ts, OUTPUT);
   pinMode(rs, OUTPUT);
   pinMode(bs, OUTPUT);
 
-  while(!Serial);
+  // while(!Serial);
 
   Serial.begin(9600);
   motor.setSpeed(5);
