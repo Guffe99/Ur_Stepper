@@ -1,4 +1,5 @@
-buttTime#include <Stepper.h>
+//Include Stepper Motor and LCD libraries
+#include <Stepper.h>
 #include <LiquidCrystal.h>
 
 // Define pins
@@ -51,6 +52,8 @@ void setup()
   // while(!Serial);
 
   Serial.begin(9600);
+
+// Set the speed of the stepper motor
   motor.setSpeed(5);
 
   // Set up the LCD's number of columns and rows:
