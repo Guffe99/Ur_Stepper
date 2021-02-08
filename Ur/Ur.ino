@@ -31,7 +31,7 @@ int x = 0;
 
 // Define LCD-monitor and stepper motor
 Stepper motor = Stepper(315, ls, ts, rs, bs);
-LiquidCrystal lcd(9, A4, 8, A1, A2, A3);
+LiquidCrystal lcd(RS, Enable, D4, D5, D6, D7);
 
 void setup()
 {
