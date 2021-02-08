@@ -33,8 +33,6 @@ int x = 0;
 Stepper motor = Stepper(315, ls, ts, rs, bs);
 LiquidCrystal lcd(9, A4, 8, A1, A2, A3);
 
-// LiquidCrystal_I2C lcd = LiquidCrystal_I2C(0x27, 16, 2)
-
 void setup()
 {
   lcd.begin(16, 2);
@@ -48,8 +46,6 @@ void setup()
   pinMode(ts, OUTPUT);
   pinMode(rs, OUTPUT);
   pinMode(bs, OUTPUT);
-
-  // while(!Serial);
 
   Serial.begin(9600);
 
@@ -66,6 +62,7 @@ void setup()
 
 void loop()
 {
+
   motor.setSpeed(speed);
   int steps = Serial.parseInt();
   motor.step(steps);
@@ -75,10 +72,16 @@ void loop()
   }
 
 
-  potValue = analogRead(pot);
-
   // lcd.setCursor(0, 1);
   // // print the number of seconds since reset:
   // lcd.print(millis() / 1000);
 
 }
+
+int potValue = analogRead(pot);
+int time = map(potValue, 0, 1023, 0, 119);
+int min = floor(time/60);
+int sek = time - 60*min;
+
+// min = floor(t/60).
+// sek   =
