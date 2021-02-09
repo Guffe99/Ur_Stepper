@@ -9,12 +9,12 @@
 #define butt2Down 5
 #define butt1Down 6
 #define buttTime 7
-#define pinD4 8
-#define RS 9
+#define pinRS 9
 #define bs 10
 #define rs 11
 #define ts 12
 #define ls 13
+#define pinD4 8
 
 // Hack some analog pins and stuff
 #define pinPot A0
@@ -28,14 +28,15 @@ int speed = 5;
 int buttonPrevious = HIGH;
 float potvalue = 0;
 int x = 0;
+int H = 0;
+int G = 0;
 
 // Define LCD-monitor and stepper motor
 Stepper motor = Stepper(315, ls, ts, rs, bs);
-LiquidCrystal lcd(RS, pinEnable, pinD4, pinD5, pinD6, pinD7);
+LiquidCrystal lcd(pinRS, pinEnable, pinD4, pinD5, pinD6, pinD7);
 
 void setup()
 {
-  lcd.begin(16, 2);
   pinMode(butt1Down, INPUT);
   pinMode(butt2Down,INPUT);
   pinMode(butt1Up, INPUT);
@@ -46,6 +47,13 @@ void setup()
   pinMode(ts, OUTPUT);
   pinMode(rs, OUTPUT);
   pinMode(bs, OUTPUT);
+  pinMode(pinRS, OUTPUT);
+  pinMode(pinEnable, OUTPUT);
+  pinMode(pinD4, OUTPUT);
+  pinMode(pinD5, OUTPUT);
+  pinMode(pinD6, OUTPUT);
+  pinMode(pinD7, OUTPUT);
+
 
   Serial.begin(9600);
 
@@ -63,12 +71,17 @@ void setup()
 void loop()
 {
 
+
+
   motor.setSpeed(speed);
   int steps = Serial.parseInt();
   motor.step(steps);
   // Serial.println(steps);
-  if(pinpot == HIGH){
+  // fix dis
+  if(pinPot == HIGH){
   	speed =+ 5;
+
+  delay(5)
   }
 
 
@@ -78,10 +91,10 @@ void loop()
 
 }
 
-int potValue = analogRead(pinpot);
-int time = map(potValue, 0, 1023, 0, 119);
-int min = floor(time/60);
-int sek = time - 60*min;
+//int potValue = analogRead(pinPot);
+//int time = map(potValue, 0, 1023, 0, 119);
+//int min = floor(time/60);
+//int sek = time - 60*min;
 
 // min = floor(t/60).
 // sek   =
