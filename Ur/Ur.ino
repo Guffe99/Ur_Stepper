@@ -75,7 +75,6 @@ void setup()
 
 void loop()
 {
-  int button
   if (digitalRead(buttHUp) == HIGH && buttonPrevHUp == LOW) {
     H++;
     delay(10);
@@ -84,13 +83,20 @@ void loop()
     }
   }
 
-    H++;
-    buttonPrevHUP = buttHup;
-
-
+  if (digitalRead(buttGUp) == HIGH && buttonPrevGUp == LOW) {
+    G++;
+    delay(10);
+    if (digitalRead(buttGUp) == LOW) {
+      buttonPrevGUP = 1;
+    }
   }
-
-
+  if (digitalRead(buttGDown) == HIGH && buttonPrevGDown == LOW) {
+    G--;
+    delay(10);
+    if (digitalRead(buttGDown) == LOW) {
+      buttonPrevGDown = 1;
+    }
+  }
   motor.setSpeed(speed);
   int steps = Serial.parseInt();
   motor.step(steps);
