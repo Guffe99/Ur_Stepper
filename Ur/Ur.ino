@@ -74,7 +74,11 @@ void setup()
 
 void loop()
 {
-  if (buttHUp == HIGH and buttonPrevHUp == LOW)
+  if (buttHUp == HIGH and buttonPrevHUp == LOW){
+    H++;
+    for i in range list():
+    buttList = LOW
+
 
   }
 
@@ -96,7 +100,16 @@ void loop()
   // lcd.print(millis() / 1000);
 
 }
+void loop(exception){
+  for
+  buttonPrevGUp = LOW;
+  buttonPrevHUp = LOW;
+  buttonPrevGDown = LOW;
+  buttonPrevHDown = LOW;
 
+
+
+}
 //int potValue = analogRead(pinPot);
 //int time = map(potValue, 0, 1023, 0, 119);
 //int min = floor(time/60);
