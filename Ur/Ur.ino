@@ -75,10 +75,19 @@ void setup()
 
 void loop()
 {
-  if (buttHUp == HIGH and buttonPrevHUp == LOW){
+  int button
+  if (digitalRead(buttHUp) == HIGH && buttonPrevHUp == LOW) {
     H++;
-    for i in range list():
-    buttList = LOW
+    delay(10);
+    if (digitalRead(buttHUp) == LOW) {
+      buttonPrevHUP = 1;
+    }
+  }
+
+    H++;
+    buttonPrevHUP = buttHup;
+
+
   }
 
 
@@ -86,11 +95,11 @@ void loop()
   int steps = Serial.parseInt();
   motor.step(steps);
   // Serial.println(steps);
-  // fix dis
+  // Fix dis
   if(pinPot == HIGH){
   	speed =+ 5;
 
-  delay(5)
+  delay(5);
   }
 
 
