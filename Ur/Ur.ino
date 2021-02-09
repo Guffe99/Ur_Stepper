@@ -91,8 +91,20 @@ void loop()
     }
   }
 
-}
-
+  if (digitalRead(buttGUp) == HIGH && buttonPrevGUp == LOW) {
+    G++;
+    delay(10);
+    if (digitalRead(buttGUp) == LOW) {
+      buttonPrevGUP = 1;
+    }
+  }
+  if (digitalRead(buttGDown) == HIGH && buttonPrevGDown == LOW) {
+    G--;
+    delay(10);
+    if (digitalRead(buttGDown) == LOW) {
+      buttonPrevGDown = 1;
+    }
+  }
 
   motor.setSpeed(speed);
   int steps = Serial.parseInt();
@@ -104,7 +116,7 @@ void loop()
 
   delay(5);
   }
-
+}
 
   // lcd.setCursor(0, 1);
   // // print the number of seconds since reset:
