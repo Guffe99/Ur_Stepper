@@ -27,13 +27,14 @@
 int speed = 5;
 int buttonPrevHUp = LOW;
 int buttonPrevHDown = LOW;
+
 int buttonPrevGUp = LOW;
 int buttonPrevGDown = LOW;
 float potvalue = 0;
 int H = 0;
 int G = 0;
 
-buttList = [buttonPrevGUp,buttonPrevHUp,buttonPrevGDown,buttonPrevHDown];
+int buttList = [buttonPrevGUp,buttonPrevHUp,buttonPrevGDown,buttonPrevHDown];
 
 // Define LCD-monitor and stepper motor
 Stepper motor = Stepper(315, ls, ts, rs, bs);
@@ -78,8 +79,6 @@ void loop()
     H++;
     for i in range list():
     buttList = LOW
-
-
   }
 
 
@@ -100,13 +99,16 @@ void loop()
   // lcd.print(millis() / 1000);
 
 }
-void loop(exception){
+// void loop(exception){
+//   for (int i = 0; i < size(buttList); i++) {
+//     if (i != exception){
+//       buttList[i] = LOW;
+//     }
+//     else{
+//       buttList[i] = HIGH;
+//     }
+//   }
 
-
-  // Python code version:
-  // for i in list and not exception:
-  // i = LOW
-  // exception = HIGH
 
 }
 //int potValue = analogRead(pinPot);
