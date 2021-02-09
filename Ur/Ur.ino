@@ -101,13 +101,12 @@ void loop()
 
 }
 void loop(exception){
-  for
-  buttonPrevGUp = LOW;
-  buttonPrevHUp = LOW;
-  buttonPrevGDown = LOW;
-  buttonPrevHDown = LOW;
 
 
+  // Python code version:
+  // for i in list and not exception:
+  // i = LOW
+  // exception = HIGH
 
 }
 //int potValue = analogRead(pinPot);
