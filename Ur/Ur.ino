@@ -25,7 +25,10 @@
 
 // Define variables
 int speed = 5;
-int buttonPrevious = HIGH;
+int buttonPrev1Up = HIGH;
+int buttonPrev1Down = HIGH;
+int buttonPrev2Up = HIGH;
+int buttonPrev2Down = HIGH;
 float potvalue = 0;
 int x = 0;
 int H = 0;
@@ -70,7 +73,9 @@ void setup()
 
 void loop()
 {
+  if (butt1Up == HIGH and buttonPrevious(butt1Up)){
 
+  }
 
 
   motor.setSpeed(speed);
