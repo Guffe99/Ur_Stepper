@@ -75,7 +75,6 @@ void setup()
 
 void loop()
 {
-  int button
   if (digitalRead(buttHUp) == HIGH && buttonPrevHUp == LOW) {
     H++;
     delay(10);
@@ -84,11 +83,15 @@ void loop()
     }
   }
 
-    H++;
-    buttonPrevHUP = buttHup;
-
-
+  if (digitalRead(buttHDown) == HIGH && buttonPrevHDown == LOW) {
+    H--;
+    delay(10);
+    if (digitalRead(buttHDown) == LOW) {
+      buttonPrevHDown = 1;
+    }
   }
+
+}
 
 
   motor.setSpeed(speed);
