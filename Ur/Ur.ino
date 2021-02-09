@@ -3,11 +3,11 @@
 #include <LiquidCrystal.h>
 
 // Define pins
-#define butt2Up 2
-#define butt1Up 3
+#define buttGUp 2
+#define buttHUp 3
 #define buzz 4
-#define butt2Down 5
-#define butt1Down 6
+#define buttGDown 5
+#define buttHDown 6
 #define buttTime 7
 #define pinRS 9
 #define bs 10
@@ -25,14 +25,15 @@
 
 // Define variables
 int speed = 5;
-int buttonPrev1Up = HIGH;
-int buttonPrev1Down = HIGH;
-int buttonPrev2Up = HIGH;
-int buttonPrev2Down = HIGH;
+int buttonPrevHUp = LOW;
+int buttonPrevHDown = LOW;
+int buttonPrevGUp = LOW;
+int buttonPrevGDown = LOW;
 float potvalue = 0;
-int x = 0;
 int H = 0;
 int G = 0;
+
+buttList = [buttonPrevGUp,buttonPrevHUp,buttonPrevGDown,buttonPrevHDown];
 
 // Define LCD-monitor and stepper motor
 Stepper motor = Stepper(315, ls, ts, rs, bs);
@@ -40,10 +41,10 @@ LiquidCrystal lcd(pinRS, pinEnable, pinD4, pinD5, pinD6, pinD7);
 
 void setup()
 {
-  pinMode(butt1Down, INPUT);
-  pinMode(butt2Down,INPUT);
-  pinMode(butt1Up, INPUT);
-  pinMode(butt2Up, INPUT);
+  pinMode(buttHDown, INPUT);
+  pinMode(buttGDown,INPUT);
+  pinMode(buttHUp, INPUT);
+  pinMode(buttGUp, INPUT);
   pinMode(buttTime, INPUT);
   pinMode(pinPot, INPUT);
   pinMode(ls, OUTPUT);
@@ -73,7 +74,7 @@ void setup()
 
 void loop()
 {
-  if (butt1Up == HIGH and buttonPrevious(butt1Up)){
+  if (buttHUp == HIGH and buttonPrevHUp == LOW)
 
   }
 
