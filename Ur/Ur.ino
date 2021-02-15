@@ -75,9 +75,15 @@ void setup()
 }
 
 void loop()
+<<<<<<< HEAD
 {
   digitalWrite(buzz, HIGH);
 
+=======
+{  
+  digitalWrite(buzz, HIGH);
+  
+>>>>>>> 361237c11d35054dc1977e59e1e80c5b5287aee0
   while (G < 0 or H < 0) {
     refreshLCD();
   }
@@ -122,7 +128,7 @@ void loop()
   // Serial.println(steps);
   // Fix dis
   if(pinPot == HIGH){
-  	speed =+ 5;
+    speed =+ 5;
   }
   delay(5);
 
