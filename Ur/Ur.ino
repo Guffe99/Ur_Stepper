@@ -25,16 +25,15 @@
 
 // Define variables
 int speed = 5;
-int buttonPrevHUp = LOW;
-int buttonPrevHDown = LOW;
+int buttonPrevHUp = 0;
+int buttonPrevHDown = 0;
 
-int buttonPrevGUp = LOW;
-int buttonPrevGDown = LOW;
+int buttonPrevGUp = 0;
+int buttonPrevGDown = 0;
 float potvalue = 0;
 int H = 0;
 int G = 0;
 
-int buttList = [buttonPrevGUp,buttonPrevHUp,buttonPrevGDown,buttonPrevHDown];
 
 // Define LCD-monitor and stepper motor
 Stepper motor = Stepper(315, ls, ts, rs, bs);
@@ -70,16 +69,24 @@ void setup()
   // Print a message to the LCD.
   lcd.print("Hello GUSTAVO!");
   lcd.setCursor (0,1);
-  lcd.print("From Nicher");
+
 }
 
 void loop()
 {
+  lcd.print("H:");
+  lcd.setCursor (0,3);
+  lcd.print(H);
+  lcd.setCursor (0,6);
+  lcd.print("G:");
+  lcd.setCursor (0,8);
+  lcd.print(G);
+  Serial.println(H);
   if (digitalRead(buttHUp) == HIGH && buttonPrevHUp == LOW) {
     H++;
     delay(10);
     if (digitalRead(buttHUp) == LOW) {
-      buttonPrevHUP = 1;
+      buttonPrevHUp = 1;
     }
   }
 
@@ -95,9 +102,10 @@ void loop()
     G++;
     delay(10);
     if (digitalRead(buttGUp) == LOW) {
-      buttonPrevGUP = 1;
+      buttonPrevGUp = 1;
     }
   }
+
   if (digitalRead(buttGDown) == HIGH && buttonPrevGDown == LOW) {
     G--;
     delay(10);
@@ -113,28 +121,11 @@ void loop()
   // Fix dis
   if(pinPot == HIGH){
   	speed =+ 5;
-
-  delay(5);
   }
+  delay(5);
 }
 
-  // lcd.setCursor(0, 1);
-  // // print the number of seconds since reset:
-  // lcd.print(millis() / 1000);
 
-}
-// void loop(exception){
-//   for (int i = 0; i < size(buttList); i++) {
-//     if (i != exception){
-//       buttList[i] = LOW;
-//     }
-//     else{
-//       buttList[i] = HIGH;
-//     }
-//   }
-
-
-}
 //int potValue = analogRead(pinPot);
 //int time = map(potValue, 0, 1023, 0, 119);
 //int min = floor(time/60);
