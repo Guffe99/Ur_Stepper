@@ -68,27 +68,25 @@ void setup()
   lcd.begin(16, 2);
   // Print a message to the LCD.
   lcd.print("Hello GUSTAVO!");
-
+  lcd.setCursor (0,1);
+  lcd.print("H:");
+  lcd.setCursor (2,1);
+  lcd.print(H);
+  lcd.setCursor (6,1);
+  lcd.print("G:");
+  lcd.setCursor (8,1);
+  lcd.print(G);
 
 }
 
 void loop()
 {
-
   Serial.println(H);
   if (digitalRead(buttHUp) == HIGH && buttonPrevHUp == 0) {
     H++;
     delay(10);
     if (digitalRead(buttHUp) == LOW) {
       buttonPrevHUp = 1;
-      lcd.setCursor (0,1);
-      lcd.print("H:");
-      lcd.setCursor (2,1);
-      lcd.print(H);
-      lcd.setCursor (6,1);
-      lcd.print("G:");
-      lcd.setCursor (8,1);
-      lcd.print(G);
     }
   }
 
