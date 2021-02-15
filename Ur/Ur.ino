@@ -68,50 +68,76 @@ void setup()
   lcd.begin(16, 2);
   // Print a message to the LCD.
   lcd.print("Hello GUSTAVO!");
-  lcd.setCursor (0,1);
+
 
 }
 
 void loop()
 {
-  lcd.print("H:");
-  lcd.setCursor (0,3);
-  lcd.print(H);
-  lcd.setCursor (0,6);
-  lcd.print("G:");
-  lcd.setCursor (0,8);
-  lcd.print(G);
+
   Serial.println(H);
-  if (digitalRead(buttHUp) == HIGH && buttonPrevHUp == LOW) {
+  if (digitalRead(buttHUp) == HIGH && buttonPrevHUp == 0) {
     H++;
     delay(10);
     if (digitalRead(buttHUp) == LOW) {
       buttonPrevHUp = 1;
+      lcd.setCursor (0,1);
+      lcd.print("H:");
+      lcd.setCursor (2,1);
+      lcd.print(H);
+      lcd.setCursor (6,1);
+      lcd.print("G:");
+      lcd.setCursor (8,1);
+      lcd.print(G);
     }
   }
 
-  if (digitalRead(buttHDown) == HIGH && buttonPrevHDown == LOW) {
+  if (digitalRead(buttHDown) == HIGH && buttonPrevHDown == 0) {
     H--;
     delay(10);
     if (digitalRead(buttHDown) == LOW) {
       buttonPrevHDown = 1;
     }
+    lcd.setCursor (0,1);
+    lcd.print("H:");
+    lcd.setCursor (2,1);
+    lcd.print(H);
+    lcd.setCursor (6,1);
+    lcd.print("G:");
+    lcd.setCursor (8,1);
+    lcd.print(G);
   }
 
-  if (digitalRead(buttGUp) == HIGH && buttonPrevGUp == LOW) {
+  if (digitalRead(buttGUp) == HIGH && buttonPrevGUp == 0) {
     G++;
     delay(10);
     if (digitalRead(buttGUp) == LOW) {
       buttonPrevGUp = 1;
     }
+    lcd.setCursor (0,1);
+    lcd.print("H:");
+    lcd.setCursor (2,1);
+    lcd.print(H);
+    lcd.setCursor (6,1);
+    lcd.print("G:");
+    lcd.setCursor (8,1);
+    lcd.print(G);
   }
 
-  if (digitalRead(buttGDown) == HIGH && buttonPrevGDown == LOW) {
+  if (digitalRead(buttGDown) == HIGH && buttonPrevGDown == 0) {
     G--;
     delay(10);
     if (digitalRead(buttGDown) == LOW) {
       buttonPrevGDown = 1;
     }
+    lcd.setCursor (0,1);
+    lcd.print("H:");
+    lcd.setCursor (2,1);
+    lcd.print(H);
+    lcd.setCursor (6,1);
+    lcd.print("G:");
+    lcd.setCursor (8,1);
+    lcd.print(G);
   }
 
   motor.setSpeed(speed);
