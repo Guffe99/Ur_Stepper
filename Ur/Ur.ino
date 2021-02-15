@@ -27,12 +27,15 @@
 int speed = 5;
 int buttonPrevHUp = 0;
 int buttonPrevHDown = 0;
+int buzzCheck = 0;
 
 int buttonPrevGUp = 0;
 int buttonPrevGDown = 0;
 float potvalue = 0;
 int H = 0;
 int G = 0;
+int min = 0;
+int sek = 0;
 
 
 // Define LCD-monitor and stepper motor
@@ -46,6 +49,7 @@ void setup()
   pinMode(buttHUp, INPUT);
   pinMode(buttGUp, INPUT);
   pinMode(buttTime, INPUT);
+  pinMode(buzz, OUTPUT);
   pinMode(pinPot, INPUT);
   pinMode(ls, OUTPUT);
   pinMode(ts, OUTPUT);
@@ -67,35 +71,17 @@ void setup()
   // Set up the LCD's number of columns and rows:
   lcd.begin(16, 2);
   // Print a message to the LCD.
-  lcd.print("Hello GUSTAVO!");
-  lcd.setCursor (0,1);
-  lcd.print("H:");
-  lcd.setCursor (2,1);
-  lcd.print(H);
-  lcd.setCursor (6,1);
-  lcd.print("G:");
-  lcd.setCursor (8,1);
-  lcd.print(G);
 
 }
 
 void loop()
-<<<<<<< HEAD
 {
-<<<<<<< HEAD
   digitalWrite(buzz, HIGH);
 
-=======
-{  
-  digitalWrite(buzz, HIGH);
-  
->>>>>>> 361237c11d35054dc1977e59e1e80c5b5287aee0
   while (G < 0 or H < 0) {
     refreshLCD();
   }
 
-=======
->>>>>>> parent of 1800cbb (useless)
   Serial.println(H);
   if (digitalRead(buttHUp) == HIGH && buttonPrevHUp == 0) {
     H++;
@@ -111,14 +97,7 @@ void loop()
     if (digitalRead(buttHDown) == LOW) {
       buttonPrevHDown = 1;
     }
-    lcd.setCursor (0,1);
-    lcd.print("H:");
-    lcd.setCursor (2,1);
-    lcd.print(H);
-    lcd.setCursor (6,1);
-    lcd.print("G:");
-    lcd.setCursor (8,1);
-    lcd.print(G);
+
   }
 
   if (digitalRead(buttGUp) == HIGH && buttonPrevGUp == 0) {
@@ -127,14 +106,6 @@ void loop()
     if (digitalRead(buttGUp) == LOW) {
       buttonPrevGUp = 1;
     }
-    lcd.setCursor (0,1);
-    lcd.print("H:");
-    lcd.setCursor (2,1);
-    lcd.print(H);
-    lcd.setCursor (6,1);
-    lcd.print("G:");
-    lcd.setCursor (8,1);
-    lcd.print(G);
   }
 
   if (digitalRead(buttGDown) == HIGH && buttonPrevGDown == 0) {
@@ -143,14 +114,6 @@ void loop()
     if (digitalRead(buttGDown) == LOW) {
       buttonPrevGDown = 1;
     }
-    lcd.setCursor (0,1);
-    lcd.print("H:");
-    lcd.setCursor (2,1);
-    lcd.print(H);
-    lcd.setCursor (6,1);
-    lcd.print("G:");
-    lcd.setCursor (8,1);
-    lcd.print(G);
   }
 
   motor.setSpeed(speed);
@@ -159,11 +122,29 @@ void loop()
   // Serial.println(steps);
   // Fix dis
   if(pinPot == HIGH){
-    speed =+ 5;
+  	speed =+ 5;
   }
   delay(5);
-}
 
+  if (sek == 0 && min == 0 && buzzCheck == 0){
+    digitalWrite(buzz, LOW);
+    delay(1000);
+    digitalWrite(buzz, HIGH);}
+    buzzCheck = 1;
+  }
+
+void refreshLCD()
+{
+  lcd.print("Hello GUSTAVO!");
+  lcd.setCursor (0,1);
+  lcd.print("H:");
+  lcd.setCursor (2,1);
+  lcd.print(H);
+  lcd.setCursor (6,1);
+  lcd.print("G:");
+  lcd.setCursor (8,1);
+  lcd.print(G);
+}
 
 //int potValue = analogRead(pinPot);
 //int time = map(potValue, 0, 1023, 0, 119);
