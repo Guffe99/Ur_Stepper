@@ -169,7 +169,7 @@ void loop()
 
 
 int potValue = analogRead(pinPot);
-int min = map(potValue, 0, 1023, 1, 120);
+int time = map(potValue, 0, 1023, 1, 120);
 int time2 = 60*time;
 int min = floor(time2/60);
 int sek = time2 - 60*min;
