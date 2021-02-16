@@ -32,8 +32,8 @@ int buzzCheck = 0;
 int buttonPrevGUp = 0;
 int buttonPrevGDown = 0;
 float potvalue = 0;
-int H = 0;
-int G = 0;
+int H = 4;
+int G = 5;
 int min = 0;
 int sek = 0;
 
@@ -62,6 +62,8 @@ void setup(){
   pinMode(pinD5, OUTPUT);
   pinMode(pinD6, OUTPUT);
   pinMode(pinD7, OUTPUT);
+  lcd.begin(16, 2);
+
 
   Serial.begin(9600);
 
@@ -69,9 +71,23 @@ void setup(){
   motor.setSpeed(5);
 
   // Set up the LCD's number of columns and rows:
-  lcd.begin(16, 2);
+
   // Print a message to the LCD.
 }
+void refreshLCD()
+  {
+  lcd.setCursor(0,0);
+  lcd.print("Starttid: 45:00");
+  lcd.setCursor (0,1);
+  lcd.print("H:");
+  lcd.setCursor (2,1);
+  lcd.print(H);
+  lcd.setCursor (6,1);
+  lcd.print("G:");
+  lcd.setCursor (8,1);
+  lcd.print(G);
+}
+
 
 void loop(){
   digitalWrite(buzz, HIGH);
@@ -93,6 +109,46 @@ void loop(){
   
   if (digitalRead(buttGDown) == HIGH && buttonPrevGDown == 0) {G--; delay(10); if (digitalRead(buttGDown) == LOW) {buttonPrevGDown = 1;}}
 
+void loop()
+{
+  refreshLCD();
+  digitalWrite(buzz, HIGH);
+
+
+  if (digitalRead(buttHUp) == HIGH && buttonPrevHUp == 0) {
+    H++;
+    refreshLCD();
+    delay(10);
+    if (digitalRead(buttHUp) == LOW) {
+      buttonPrevHUp = 1;
+    }
+  }
+
+  if (digitalRead(buttHDown) == HIGH && buttonPrevHDown == 0) {
+    H--;
+    delay(10);
+    if (digitalRead(buttHDown) == LOW) {
+      buttonPrevHDown = 1;
+    }
+
+  }
+
+  if (digitalRead(buttGUp) == HIGH && buttonPrevGUp == 0) {
+    G++;
+    delay(10);
+    if (digitalRead(buttGUp) == LOW) {
+      buttonPrevGUp = 1;
+    }
+  }
+
+  if (digitalRead(buttGDown) == HIGH && buttonPrevGDown == 0) {
+    G--;
+    delay(10);
+    if (digitalRead(buttGDown) == LOW) {
+      buttonPrevGDown = 1;
+    }
+  }
+
   motor.setSpeed(speed);
   int steps = Serial.parseInt();
   motor.step(steps);
@@ -110,18 +166,7 @@ void loop(){
     buzzCheck = 1;
   }
 
-void refreshLCD()
-{
-  lcd.print("Hello GUSTAVO!");
-  lcd.setCursor (0,1);
-  lcd.print("H:");
-  lcd.setCursor (2,1);
-  lcd.print(H);
-  lcd.setCursor (6,1);
-  lcd.print("G:");
-  lcd.setCursor (8,1);
-  lcd.print(G);
-}
+
 
 //int potValue = analogRead(pinPot);
 //int time = map(potValue, 0, 1023, 0, 119);
