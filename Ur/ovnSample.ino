@@ -125,7 +125,7 @@ int TempF = (((analogRead(RawTemp) * 5.0 / 1024.0) * 100.0) * 9.0 / 5.0) + 32.0;
   potValue = analogRead(pot);
   TEMPAI = potValue / 10.23 * 0.71 + 10;
 }
-01.12.2020 08.57
+//01.12.2020 08.57
 Du har sendt 1. december 2020
 Fix resten: //Nichlas Overgaard Laugesen, Maria Mose Nielsen, Gustav Strøm Ottesen.
 

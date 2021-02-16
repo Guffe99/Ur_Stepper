@@ -37,13 +37,14 @@ int G = 0;
 int min = 0;
 int sek = 0;
 
+unsigned long time;
+unsigned long timer;
 
 // Define LCD-monitor and stepper motor
 Stepper motor = Stepper(315, ls, ts, rs, bs);
 LiquidCrystal lcd(pinRS, pinEnable, pinD4, pinD5, pinD6, pinD7);
 
-void setup()
-{
+void setup(){
   pinMode(buttHDown, INPUT);
   pinMode(buttGDown,INPUT);
   pinMode(buttHUp, INPUT);
@@ -62,59 +63,35 @@ void setup()
   pinMode(pinD6, OUTPUT);
   pinMode(pinD7, OUTPUT);
 
-
   Serial.begin(9600);
 
-// Set the speed of the stepper motor
+  // Set the speed of the stepper motor
   motor.setSpeed(5);
 
   // Set up the LCD's number of columns and rows:
   lcd.begin(16, 2);
   // Print a message to the LCD.
-
 }
 
-void loop()
-{
+void loop(){
   digitalWrite(buzz, HIGH);
-
+  time = 30000
+  millis();
+  timer = time - millis();
+  print(timer);
+  
   while (G < 0 or H < 0) {
     refreshLCD();
   }
 
   Serial.println(H);
-  if (digitalRead(buttHUp) == HIGH && buttonPrevHUp == 0) {
-    H++;
-    delay(10);
-    if (digitalRead(buttHUp) == LOW) {
-      buttonPrevHUp = 1;
-    }
-  }
-
-  if (digitalRead(buttHDown) == HIGH && buttonPrevHDown == 0) {
-    H--;
-    delay(10);
-    if (digitalRead(buttHDown) == LOW) {
-      buttonPrevHDown = 1;
-    }
-
-  }
-
-  if (digitalRead(buttGUp) == HIGH && buttonPrevGUp == 0) {
-    G++;
-    delay(10);
-    if (digitalRead(buttGUp) == LOW) {
-      buttonPrevGUp = 1;
-    }
-  }
-
-  if (digitalRead(buttGDown) == HIGH && buttonPrevGDown == 0) {
-    G--;
-    delay(10);
-    if (digitalRead(buttGDown) == LOW) {
-      buttonPrevGDown = 1;
-    }
-  }
+  if (digitalRead(buttHUp  ) == HIGH && buttonPrevHUp   == 0) {H++; delay(10); if (digitalRead(buttHUp  ) == LOW) {buttonPrevHUp   = 1;}}
+  
+  if (digitalRead(buttHDown) == HIGH && buttonPrevHDown == 0) {H--; delay(10); if (digitalRead(buttHDown) == LOW) {buttonPrevHDown = 1;}}
+  
+  if (digitalRead(buttGUp  ) == HIGH && buttonPrevGUp   == 0) {G++; delay(10); if (digitalRead(buttGUp  ) == LOW) {buttonPrevGUp   = 1;}}
+  
+  if (digitalRead(buttGDown) == HIGH && buttonPrevGDown == 0) {G--; delay(10); if (digitalRead(buttGDown) == LOW) {buttonPrevGDown = 1;}}
 
   motor.setSpeed(speed);
   int steps = Serial.parseInt();
