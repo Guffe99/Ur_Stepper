@@ -37,12 +37,11 @@ int G = 5;
 int min = 0;
 int sek = 0;
 
+unsigned long time;
 unsigned long timer;
-unsigned long timer2;
-unsigned long timer3;
 
 // Define LCD-monitor and stepper motor
-Stepper motor = Stepper(315, ls, ts, rs, bs);
+Stepper motor = Stepper(120, ls, ts, rs, bs);
 LiquidCrystal lcd(pinRS, pinEnable, pinD4, pinD5, pinD6, pinD7);
 
 void setup(){
@@ -91,25 +90,27 @@ void refreshLCD()
 
 
 void loop(){
-  digitalWrite(buzz, HIGH);
-  timer = 30000;
-  timer3 = millis();
-  timer2 = timer - timer3; 
-  Serial.print(timer2);
-  
-  while (G < 0 or H < 0) {
-    refreshLCD();
-  }
 
-  Serial.println(H);
+  refreshLCD();
+  digitalWrite(buzz, HIGH);
+
+  time = 30000;
+  millis();
+  timer = time - millis();
+  Serial.println(timer);
+
+
+  //Serial.print(H);
   if (digitalRead(buttHUp  ) == HIGH && buttonPrevHUp   == 0) {H++; delay(10); if (digitalRead(buttHUp  ) == LOW) {buttonPrevHUp   = 1;}}
-  
+
   if (digitalRead(buttHDown) == HIGH && buttonPrevHDown == 0) {H--; delay(10); if (digitalRead(buttHDown) == LOW) {buttonPrevHDown = 1;}}
-  
+
   if (digitalRead(buttGUp  ) == HIGH && buttonPrevGUp   == 0) {G++; delay(10); if (digitalRead(buttGUp  ) == LOW) {buttonPrevGUp   = 1;}}
-  
+
   if (digitalRead(buttGDown) == HIGH && buttonPrevGDown == 0) {G--; delay(10); if (digitalRead(buttGDown) == LOW) {buttonPrevGDown = 1;}}
 
+void loop()
+{
   refreshLCD();
   digitalWrite(buzz, HIGH);
 
@@ -165,9 +166,13 @@ void loop(){
     buzzCheck = 1;
   }
 
+
+
 int potValue = analogRead(pinPot);
 int min = map(potValue, 0, 1023, 1, 120);
-int sek = min * 60;
+int time2 = 60*time;
+int min = floor(time2/60);
+int sek = time2 - 60*min;
 
 // min = floor(t/60).
-// sek =
+// sek   =
