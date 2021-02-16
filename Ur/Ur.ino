@@ -90,17 +90,17 @@ void refreshLCD()
 
 
 void loop(){
+
+  refreshLCD();
   digitalWrite(buzz, HIGH);
-  time = 30000
+
+  time = 30000;
   millis();
   timer = time - millis();
-  print(timer);
+  Serial.println(timer);
 
-  while (G < 0 or H < 0) {
-    refreshLCD();
-  }
 
-  Serial.println(H);
+  //Serial.print(H);
   if (digitalRead(buttHUp  ) == HIGH && buttonPrevHUp   == 0) {H++; delay(10); if (digitalRead(buttHUp  ) == LOW) {buttonPrevHUp   = 1;}}
 
   if (digitalRead(buttHDown) == HIGH && buttonPrevHDown == 0) {H--; delay(10); if (digitalRead(buttHDown) == LOW) {buttonPrevHDown = 1;}}
