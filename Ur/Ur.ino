@@ -37,8 +37,9 @@ int G = 5;
 int min = 0;
 int sek = 0;
 
-unsigned long time;
 unsigned long timer;
+unsigned long timer2;
+unsigned long timer3;
 
 // Define LCD-monitor and stepper motor
 Stepper motor = Stepper(315, ls, ts, rs, bs);
@@ -91,10 +92,10 @@ void refreshLCD()
 
 void loop(){
   digitalWrite(buzz, HIGH);
-  time = 30000
-  millis();
-  timer = time - millis();
-  print(timer);
+  timer = 30000;
+  timer3 = millis();
+  timer2 = timer - timer3; 
+  Serial.print(timer2);
   
   while (G < 0 or H < 0) {
     refreshLCD();
@@ -109,8 +110,6 @@ void loop(){
   
   if (digitalRead(buttGDown) == HIGH && buttonPrevGDown == 0) {G--; delay(10); if (digitalRead(buttGDown) == LOW) {buttonPrevGDown = 1;}}
 
-void loop()
-{
   refreshLCD();
   digitalWrite(buzz, HIGH);
 
@@ -166,12 +165,9 @@ void loop()
     buzzCheck = 1;
   }
 
-
-
-//int potValue = analogRead(pinPot);
-//int time = map(potValue, 0, 1023, 0, 119);
-//int min = floor(time/60);
-//int sek = time - 60*min;
+int potValue = analogRead(pinPot);
+int min = map(potValue, 0, 1023, 1, 120);
+int sek = min * 60;
 
 // min = floor(t/60).
-// sek   =
+// sek =
