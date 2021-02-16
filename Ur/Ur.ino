@@ -1,6 +1,7 @@
 //Include Stepper Motor and LCD libraries
 #include <Stepper.h>
 #include <LiquidCrystal.h>
+#define seconds() (millis()/1000)
 
 // Define pins
 #define buttGUp 2
@@ -34,11 +35,9 @@ int buttonPrevGDown = 0;
 float potvalue = 0;
 int H = 4;
 int G = 5;
-int min = 0;
-int sek = 0;
 
-unsigned long time;
-unsigned long timer;
+unsigned long timeMin;
+unsigned long timeSek;
 
 // Define LCD-monitor and stepper motor
 Stepper motor = Stepper(120, ls, ts, rs, bs);
@@ -90,16 +89,20 @@ void refreshLCD()
 
 
 void loop(){
-
   refreshLCD();
   digitalWrite(buzz, HIGH);
 
-  time = 30000;
-  millis();
-  timer = time - millis();
-  Serial.println(timer);
+  int potValue = analogRead(pinPot);
+  int time = map(potValue, 0, 1023, 1, 120);
+  //int time2 = 60*time;
+  int min = time;
+  int sek = 60*min;
 
-
+  timeSek = sek - seconds();
+  timeMin = floor((sek-seconds())/60);
+  Serial.println(timeMin);
+  Serial.println(timeSek);
+  
   //Serial.print(H);
   if (digitalRead(buttHUp  ) == HIGH && buttonPrevHUp   == 0) {H++; delay(10); if (digitalRead(buttHUp  ) == LOW) {buttonPrevHUp   = 1;}}
 
@@ -109,53 +112,17 @@ void loop(){
 
   if (digitalRead(buttGDown) == HIGH && buttonPrevGDown == 0) {G--; delay(10); if (digitalRead(buttGDown) == LOW) {buttonPrevGDown = 1;}}
 
-void loop()
-{
   refreshLCD();
   digitalWrite(buzz, HIGH);
-
-
-  if (digitalRead(buttHUp) == HIGH && buttonPrevHUp == 0) {
-    H++;
-    refreshLCD();
-    delay(10);
-    if (digitalRead(buttHUp) == LOW) {
-      buttonPrevHUp = 1;
-    }
   }
-
-  if (digitalRead(buttHDown) == HIGH && buttonPrevHDown == 0) {
-    H--;
-    delay(10);
-    if (digitalRead(buttHDown) == LOW) {
-      buttonPrevHDown = 1;
-    }
-
-  }
-
-  if (digitalRead(buttGUp) == HIGH && buttonPrevGUp == 0) {
-    G++;
-    delay(10);
-    if (digitalRead(buttGUp) == LOW) {
-      buttonPrevGUp = 1;
-    }
-  }
-
-  if (digitalRead(buttGDown) == HIGH && buttonPrevGDown == 0) {
-    G--;
-    delay(10);
-    if (digitalRead(buttGDown) == LOW) {
-      buttonPrevGDown = 1;
-    }
-  }
-
+/*
   motor.setSpeed(speed);
   int steps = Serial.parseInt();
   motor.step(steps);
   // Serial.println(steps);
   // Fix dis
   if(pinPot == HIGH){
-  	speed =+ 5;
+    speed =+ 5;
   }
   delay(5);
 
@@ -164,15 +131,4 @@ void loop()
     delay(1000);
     digitalWrite(buzz, HIGH);}
     buzzCheck = 1;
-  }
-
-
-
-int potValue = analogRead(pinPot);
-int time = map(potValue, 0, 1023, 1, 120);
-int time2 = 60*time;
-int min = floor(time2/60);
-int sek = time2 - 60*min;
-
-// min = floor(t/60).
-// sek   =
+  }*/
