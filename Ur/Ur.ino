@@ -35,6 +35,7 @@ int buttonPrevGDown = 0;
 float potvalue = 0;
 int H = 4;
 int G = 5;
+int T = 1;
 
 unsigned long timeMin;
 unsigned long timeSek;
@@ -91,17 +92,31 @@ void refreshLCD()
 void loop(){
   refreshLCD();
   digitalWrite(buzz, HIGH);
-
+  
+  //Get the desired time in minutes from the potentiometer.
+  //And calculate the seconds.
   int potValue = analogRead(pinPot);
   int time = map(potValue, 0, 1023, 1, 120);
-  //int time2 = 60*time;
   int min = time;
-  int sek = 60*min;
-
-  timeSek = sek - seconds();
-  timeMin = floor((sek-seconds())/60);
+  int sek = 60 * min;
+  
+  //As long as marker (T) is one the time is updated
+  if (T == 1){  
+    timeSek = sek - seconds();
+    timeMin = floor((sek-seconds())/60);
+  }
+  
   Serial.println(timeMin);
-  Serial.println(timeSek);
+  Serial.println(timeSek - 60 * timeMin);
+  Serial.println(T);
+  
+  //When the time reaches "0:00", T gets changed and 
+  //the time doesn't update anymore. (To avoid underflow)
+  if (timeMin < 1 && timeSek < 1){
+    timeMin = 0;
+    timeSek = 0;
+    T = 0;
+  }
   
   //Serial.print(H);
   if (digitalRead(buttHUp  ) == HIGH && buttonPrevHUp   == 0) {H++; delay(10); if (digitalRead(buttHUp  ) == LOW) {buttonPrevHUp   = 1;}}
