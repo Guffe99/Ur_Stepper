@@ -4,11 +4,7 @@
 #define seconds() (millis()/1000)
 
 // Define pins
-#define buttGUp 2
-#define buttHUp 3
 #define buzz 4
-#define buttGDown 5
-#define buttHDown 6
 #define buttTime 7
 #define pinRS 9
 #define bs 10
@@ -25,16 +21,20 @@
 #define pinEnable A4
 
 // Define variables
+const int buttGUp = 2;
+const int buttHUp = 3;
+const int buttGDown=5;
+const int buttHDown=6;
 int speed = 5;
-int buttonPrevHUp = 0;
-int buttonPrevHDown = 0;
+int buttonPrevHUp = LOW;
+int buttonPrevHDown = LOW;
 int buzzCheck = 0;
 
-int buttonPrevGUp = 0;
-int buttonPrevGDown = 0;
+int buttonPrevGUp = LOW;
+int buttonPrevGDown = LOW;
 float potvalue = 0;
-int H = 4;
-int G = 5;
+int H = 0;
+int G = 0;
 
 unsigned long timeMin;
 unsigned long timeSek;
@@ -100,20 +100,23 @@ void loop(){
 
   timeSek = sek - seconds();
   timeMin = floor((sek-seconds())/60);
-  Serial.println(timeMin);
-  Serial.println(timeSek);
+  // Serial.println(timeMin);
+  // Serial.println(timeSek);
 
   //Serial.print(H);
-  if (digitalRead(buttHUp  ) == HIGH && buttonPrevHUp   == 0) {H++; delay(10); if (digitalRead(buttHUp  ) == LOW) {buttonPrevHUp   = 1;}}
+  while (digitalRead(buttHUp  ) == HIGH) { if (digitalRead(buttHUp  ) == LOW) {H++; }}
 
-  if (digitalRead(buttHDown) == HIGH && buttonPrevHDown == 0) {H--; delay(10); if (digitalRead(buttHDown) == LOW) {buttonPrevHDown = 1;}}
+  while (digitalRead(buttHDown) == HIGH) { if (digitalRead(buttHDown) == LOW) {H--; }}
 
-  if (digitalRead(buttGUp  ) == HIGH && buttonPrevGUp   == 0) {G++; delay(10); if (digitalRead(buttGUp  ) == LOW) {buttonPrevGUp   = 1;}}
+  while (digitalRead(buttGUp  ) == HIGH) { if (digitalRead(buttGUp  ) == LOW) {G++; }}
 
-  if (digitalRead(buttGDown) == HIGH && buttonPrevGDown == 0) {G--; delay(10); if (digitalRead(buttGDown) == LOW) {buttonPrevGDown = 1;}}
+  while (digitalRead(buttGDown) == HIGH) { if (digitalRead(buttGDown) == LOW) {G--; }}
 
   refreshLCD();
   digitalWrite(buzz, HIGH);
+
+  int buttonstate = digitalRead(buttHDown);
+  Serial.println(buttonstate);
   }
 /*
   motor.setSpeed(speed);

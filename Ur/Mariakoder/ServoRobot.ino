@@ -49,29 +49,30 @@ Serial.begin(9600);
 void loop(){
 //Print comandoer til at tjekke forskellige værdier
   //Serial.println(lysSensorValue);      //Printer sensorværdien fra LDR
-  //Serial.print(",");                     
+  //Serial.print(",");
   //Serial.println(millis());            //Printer den interne tid
-  //Serial.print(",");                     
+  //Serial.print(",");
   //Serial.println(distance);            //Printer afstand i cm (målt af ultralyds sensoren)
   //Serial.print("Fish Tacos ");         //Makes Fish Tacos
-  
-lysSensorValue = analogRead(lysSensorPin);  //Opdatere værdien fra lys sensoren
+
+lysSensorValue = analog
+Read(lysSensorPin);  //Opdatere værdien fra lys sensoren
 
 //Ultralydssensoren tjekker afstand
-digitalWrite(trigPin, LOW );             
-delayMicroseconds(2);              
-digitalWrite(trigPin, HIGH);       
-delayMicroseconds(10);             
-digitalWrite(trigPin, LOW );       
-duration = pulseIn(echoPin, HIGH); 
-distance = duration * 0.034 / 2;   
-  
+digitalWrite(trigPin, LOW );
+delayMicroseconds(2);
+digitalWrite(trigPin, HIGH);
+delayMicroseconds(10);
+digitalWrite(trigPin, LOW );
+duration = pulseIn(echoPin, HIGH);
+distance = duration * 0.034 / 2;
+
 //Når der er mørkt (når sensorValue er lig eller under 750) er den grønne LED slukket og den røde LED tændt og buzzeren "spiller" morsekode
 if (lysSensorValue <= 750){
   timer  = millis() - time;               //Nulstiller tiden så den starter fra nul når der bliver mørkt
   digitalWrite(LEDRED,HIGH );
   digitalWrite(LEDGREEN,LOW);
-  
+
   //'BUZZER' spiller "SOS" i morsekode: En 'periode' er lige med længden af en "prik" i morsekode
   //Servoerne får det til at se ud som om den panikker i mørket
   // . . . (S)
@@ -81,7 +82,7 @@ if (lysSensorValue <= 750){
   if (timer >= 4  * period){ digitalWrite(BUZZER,LOW );                       }
   if (timer >= 5  * period){ digitalWrite(BUZZER,HIGH); RLegServo. write(155);}
   if (timer >= 6  * period){ digitalWrite(BUZZER,LOW ); LLegServo. write( 55);}
-  
+
   // - - - (O)
   if (timer >= 9  * period){ digitalWrite(BUZZER,HIGH); RFootServo.write(110);}
   if (timer >= 12 * period){ digitalWrite(BUZZER,LOW ); LFootServo.write( 75);}
@@ -100,14 +101,14 @@ if (lysSensorValue <= 750){
   if (timer >= 35 * period){ LLegServo. write(LLegServoDefaultPos );
                              LFootServo.write(LFootServoDefaultPos);
                              RLegServo. write(RLegServoDefaultPos );
-                             RFootServo.write(RFootServoDefaultPos); 
+                             RFootServo.write(RFootServoDefaultPos);
                              delayMicroseconds(50);
                              time = millis();                                 }   //For at nulstille 'timer' så 'SOS' bliver spillet på repeat mens der er mørkt
   }
 
 
 //Når der er lyst (når sensorValue er over 650) er den grønne LED tændt og den røde og buzzeren er slukket
-else {  
+else {
   digitalWrite(LEDRED,  LOW );
   digitalWrite(LEDGREEN,HIGH);
   digitalWrite(BUZZER,  LOW );
