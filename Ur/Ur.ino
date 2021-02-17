@@ -64,7 +64,6 @@ void setup(){
   pinMode(pinD7, OUTPUT);
   lcd.begin(16, 2);
 
-
   Serial.begin(9600);
 
   // Set the speed of the stepper motor
@@ -74,20 +73,44 @@ void setup(){
 
   // Print a message to the LCD.
 }
+//Updates the LCD with the correct time and points
 void refreshLCD()
   {
   lcd.setCursor(0,0);
-  lcd.print("Starttid: 45:00");
-  lcd.setCursor (0,1);
-  lcd.print("H:");
-  lcd.setCursor (2,1);
-  lcd.print(H);
-  lcd.setCursor (6,1);
-  lcd.print("G:");
-  lcd.setCursor (8,1);
-  lcd.print(G);
+  lcd.print("Tid:");
+  
+  if (timeMin >= 100){
+    lcd.setCursor (5,0);
+  }
+  
+  if (timeMin < 100 && timeMin >= 10){
+    lcd.setCursor (5,0);
+    lcd.print(" ");
+    lcd.setCursor (6,0);
+  }
+  
+  if (timeMin < 10){
+    lcd.setCursor (6,0);
+    lcd.print(" ");
+    lcd.setCursor (7,0);
+  }
+  
+  lcd.print(timeMin);
+  lcd.setCursor (8,0);
+  lcd.print(":");
+  
+  if ((timeSek - 60 * timeMin) >= 10){
+    lcd.setCursor (9,0);
+  }
+  
+  if ((timeSek - 60 * timeMin) < 10){
+    lcd.setCursor (9,0);
+    lcd.print(0);
+    lcd.setCursor (10,0);
+  }
+  
+  lcd.print(timeSek - 60 * timeMin);
 }
-
 
 void loop(){
   refreshLCD();
@@ -106,9 +129,9 @@ void loop(){
     timeMin = floor((sek-seconds())/60);
   }
   
-  Serial.println(timeMin);
-  Serial.println(timeSek - 60 * timeMin);
-  Serial.println(T);
+  //Serial.println(timeMin);
+  //Serial.println(timeSek - 60 * timeMin);
+  //Serial.println(T);
   
   //When the time reaches "0:00", T gets changed and 
   //the time doesn't update anymore. (To avoid underflow)
