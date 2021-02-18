@@ -11,7 +11,7 @@ const int buttGDown=5;                                    // Button - Guest team
 const int buttHDown=6;                                    // Button - Home team point -1
 #define buttTime 7                                        // Time / stop button
 #define pinD4 8                                           // Data pin 4
-#define pinRS  9im                                        // Register Select
+#define pinRS  9                                       // Register Select
 #define bs 10                                             // Bottom side of Stepper motor
 #define rs 11                                             // Right side of Stepper motor
 #define ts 12                                             // Top side of Stepper motor
@@ -43,11 +43,11 @@ long timeSek;                               // Seconds left on counter
 
 // Define LCD-monitor and stepper motor
 int steps = time;                                                   // Number of steps
-Stepper motor = Stepper(steps, ls, rs, ts, bs);                     // Define motor
-LiquidCrystal lcd(pinRS, pinEnable, pinD4, pinD5, pinD6, pinD7);    
+Stepper motor = Stepper(steps, ts,rs, ls, bs);                     // Define motor
+LiquidCrystal lcd(pinRS, pinEnable, pinD4, pinD5, pinD6, pinD7);    // Define LCD
 
 void setup(){
-  pinMode(buttHDown, INPUT);
+  pinMode(buttHDown, INPUT);                                       // Set pinModes
   pinMode(buttGDown,INPUT);
   pinMode(buttHUp, INPUT);
   pinMode(buttGUp, INPUT);
@@ -64,13 +64,13 @@ void setup(){
   pinMode(pinD5, OUTPUT);
   pinMode(pinD6, OUTPUT);
   pinMode(pinD7, OUTPUT);
-  lcd.begin(16, 2);
+  lcd.begin(16, 2);                      // LCD begin
 
-  digitalWrite(buzz, HIGH);
+  digitalWrite(buzz, HIGH);              // Buzz
   Serial.begin(9600);
-
+  int hk = 1/time;
   // Set the speed of the stepper motor
-  motor.setSpeed(1/time);
+  motor.setSpeed(2453241245);
 
   // Set up the LCD's number of columns and rows:
 
@@ -211,8 +211,8 @@ void loop(){
   if (state == 1) {
     motor.step(0);
     timeStart = millis();
-    timeDiff = timeStart - timeStop;           // 
-    timeDiff2 = timeDiff;                      // To add time difference 
+    timeDiff = timeStart - timeStop;           //
+    timeDiff2 = timeDiff;                      // To add time difference
     T = 2;                                     // T == 2 start countdown
   }
   if (state == 0) {
