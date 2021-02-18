@@ -1,4 +1,4 @@
-/*//Nichlas Overgaard Laugesen, Maria Mose Nielsen, Gustav Strøm Ottesen.
+//Nichlas Overgaard Laugesen, Maria Mose Nielsen, Gustav Strøm Ottesen.
 
 // Til denne kode benyttes et library der kan downloades under Manage Libraries i 'Værtøjer'-knappen i toppen af arduino programmet.
 // Bibloteket hedder "LiquidCrystal I2C"
@@ -251,4 +251,4 @@ int TempF = (((analogRead(RawTemp) * 5.0 / 1024.0) * 100.0) * 9.0 / 5.0) + 32.0;
 
   potValue = analogRead(pot);
   TEMPAI = potValue / 10.23 * 0.71 + 10;
-}*/
+}
