@@ -4,18 +4,18 @@
 #define seconds() ((millis()-timeDiff-millisDiff)/1000)   // Define seconds() variable
 
 // Define pins 2-13
-const int buttGUp = 2;                                    // Button - Guest team point +1
-const int buttHUp = 3;                                    // Button - Home team point +1
-#define buzz 4                                            // Buzzer
-const int buttGDown=5;                                    // Button - Guest team point -1
-const int buttHDown=6;                                    // Button - Home team point -1
-#define buttTime 7                                        // Time / stop button
-#define pinD4 8                                           // Data pin 4
-#define pinRS 9                                           // Register Select
-#define bs 10                                             // Bottom side of Stepper motor
-#define rs 11                                             // Right side of Stepper motor
-#define ts 12                                             // Top side of Stepper motor
-#define ls 13                                             // Left side of Stepper motor
+const int buttGUp = 2;                      // Button - Guest team point +1
+const int buttHUp = 3;                      // Button - Home team point +1
+#define buzz 4                              // Buzzer
+const int buttGDown=5;                      // Button - Guest team point -1
+const int buttHDown=6;                      // Button - Home team point -1
+#define buttTime 7                          // Time / stop button
+#define pinD4 8                             // Data pin 4
+#define pinRS 9                             // Register Select
+#define bs 10                               // Bottom side of Stepper motor
+#define rs 11                               // Right side of Stepper motor
+#define ts 12                               // Top side of Stepper motor
+#define ls 13                               // Left side of Stepper motor
 
 // Hack some analog pins and stuff
 #define pinPot A0                           // Potentiometer pin
