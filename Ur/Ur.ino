@@ -193,8 +193,12 @@ void loop(){
   digitalWrite(buzz, HIGH);
 
   int buttonstate = digitalRead(buttHDown);
-  Serial.println(buttonstate);
-
+  if (digitalRead(buttTime) == HIGH) {
+    int k = 1;
+  }
+  if (k == 1) {
+    motor.step(time);
+  }
 }
 /*
   motor.setSpeed(speed);
