@@ -35,11 +35,9 @@ int buttonPrevGUp = LOW;
 int buttonPrevGDown = LOW;
 float potvalue = 0;
 int H = 0;
-int G = 100;
+int G = 0;
 int T = 1;
-int potValue = analogRead(pinPot);
-int time = map(potValue, 0, 1023, 1, 120);
-
+int time;
 
 unsigned long timeMin;
 unsigned long timeSek;
@@ -124,6 +122,8 @@ void loop(){
 
   //Get the desired time in minutes from the potentiometer.
   //And calculate the seconds.
+  int potValue = analogRead(pinPot);
+  time = map(potValue, 0, 1023, 1, 120);
   int min = time;
   int sek = 60 * min;
 
