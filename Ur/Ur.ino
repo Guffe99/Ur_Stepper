@@ -227,12 +227,12 @@ void loop(){
       lcd.print("00");
       millisDiff = millis();                   // Saves time from program start until start timer
     }
-    if (T == 3 && time >= 100){
-      lcd.setCursor(5,0);
-      lcd.print(time);
-    }
     if (T == 3 && time < 100 && time >= 10){
       lcd.setCursor(6,0);
+      lcd.print(time);
+    }
+    if (T == 3 && time >= 100){
+      lcd.setCursor(5,0);
       lcd.print(time);
     }
     if (T == 3 && time > 10){
