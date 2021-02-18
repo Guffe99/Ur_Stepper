@@ -1,7 +1,7 @@
 //Include Stepper Motor and LCD libraries
 #include <Stepper.h>
 #include <LiquidCrystal.h>
-#define seconds() (millis()/1000)
+#define seconds() ((millis()-timeDiff-millisDiff)/1000)
 
 // Define pins
 #define buzz 4
@@ -35,12 +35,17 @@ int buttonPrevGDown = LOW;
 float potvalue = 0;
 int H = 0;
 int G = 0;
-int T = 2;
+int T = 3;
 int val=0;
 int old_val=0;
 int state=0;
 int time;
 int TS = 1;
+int timeStop = 0;
+int timeStart = 0;
+int timeDiff = 0;
+int timeDiff2 = 0;
+int millisDiff = 0;
 
 long timeMin;
 long timeSek;
@@ -86,37 +91,38 @@ void refreshLCD()
   lcd.setCursor(0,0);
   lcd.print("Tid:");
 
-  if (timeMin >= 100){
-    lcd.setCursor (5,0);
+  if (T < 3){
+    if (timeMin >= 100){
+      lcd.setCursor (5,0);
+    }
+
+    if (timeMin < 100 && timeMin >= 10){
+      lcd.setCursor (5,0);
+      lcd.print(" ");
+      lcd.setCursor (6,0);
+    }
+
+    if (timeMin < 10){
+      lcd.setCursor (6,0);
+      lcd.print(" ");
+      lcd.setCursor (7,0);
+    }
+
+    lcd.print(timeMin);
+    lcd.setCursor (8,0);
+    lcd.print(":");
+
+    if ((timeSek - 60 * timeMin) >= 10){
+      lcd.setCursor (9,0);
+    }
+
+    if ((timeSek - 60 * timeMin) < 10){
+      lcd.setCursor (9,0);
+      lcd.print(0);
+      lcd.setCursor (10,0);
+    }
+    lcd.print(timeSek - 60 * timeMin);
   }
-
-  if (timeMin < 100 && timeMin >= 10){
-    lcd.setCursor (5,0);
-    lcd.print(" ");
-    lcd.setCursor (6,0);
-  }
-
-  if (timeMin < 10){
-    lcd.setCursor (6,0);
-    lcd.print(" ");
-    lcd.setCursor (7,0);
-  }
-
-  lcd.print(timeMin);
-  lcd.setCursor (8,0);
-  lcd.print(":");
-
-  if ((timeSek - 60 * timeMin) >= 10){
-    lcd.setCursor (9,0);
-  }
-
-  if ((timeSek - 60 * timeMin) < 10){
-    lcd.setCursor (9,0);
-    lcd.print(0);
-    lcd.setCursor (10,0);
-  }
-  lcd.print(timeSek - 60 * timeMin);
-
   // If sentences removing unused numbers
 
   // H-part
@@ -131,6 +137,7 @@ void refreshLCD()
     lcd.setCursor(4,1);
     lcd.print(" ");
   }
+  
   // G-part
   if (G <= 0) {
     G = 0;
@@ -205,31 +212,40 @@ void loop(){
 
   val=digitalRead(buttTime);
   if( (val==HIGH) && (old_val==LOW)) {
-    state=1-state;}
-    old_val=val;
-  if (state==1) {
-    motor.step(time);
-    
-  }  
-  else {
+    state=1-state;
+  }
+  
+  old_val=val;
+  
+  if (state == 1) {
     motor.step(0);
-    
+    timeStart = millis();
+    timeDiff = timeStart - timeStop;
+    timeDiff2 = timeDiff;
+    T = 2;
+  }  
+  if (state == 0) {
+    motor.step(time);
+    timeStop = millis() - timeDiff2;
+        
+    if (T == 3){
+      lcd.setCursor (8,0);
+      lcd.print(":");
+      lcd.setCursor (9,0);
+      lcd.print("00");
+      millisDiff = millis();
+    }
+    if (T == 3 && time >= 100){
+      lcd.setCursor(5,0);
+      lcd.print(time);
+    }
+    if (T == 3 && time < 100 && time >= 10){
+      lcd.setCursor(6,0);
+      lcd.print(time);
+    }
+    if (T == 3 && time > 10){
+      lcd.setCursor(7,0);
+      lcd.print(time);
+    }
   }
 }
-/*
-  motor.setSpeed(speed);
-  int steps = Serial.parseInt();
-  motor.step(steps);
-  // Serial.println(steps);
-  // Fix dis
-  if(pinPot == HIGH){
-    speed =+ 5;
-  }
-  delay(5);
-
-  if (sek == 0 && min == 0 && buzzCheck == 0){
-    digitalWrite(buzz, LOW);
-    delay(1000);
-    digitalWrite(buzz, HIGH);}
-    buzzCheck = 1;
-  }*/
