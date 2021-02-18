@@ -11,7 +11,7 @@ const int buttGDown=5;                                    // Button - Guest team
 const int buttHDown=6;                                    // Button - Home team point -1
 #define buttTime 7                                        // Time / stop button
 #define pinD4 8                                           // Data pin 4
-#define pinRS  9im                                        // Register Select
+#define pinRS 9                                          // Register Select
 #define bs 10                                             // Bottom side of Stepper motor
 #define rs 11                                             // Right side of Stepper motor
 #define ts 12                                             // Top side of Stepper motor
@@ -173,34 +173,34 @@ void loop(){
   //Serial.println(timeSek - 60 * timeMin);
   //Serial.println(T);
 
-  //When the time reaches "0:00", T gets changed and
-  //the time doesn't update anymore. (To avoid underflow)
-  if (timeMin < 1 && timeSek < 1 && T == 2){
-    timeMin = 0;
-    timeSek = 0;
-    T = 1;
+  if (timeMin < 1 && timeSek < 1 && T == 2){                // Check if timer is 0:00
+    timeMin = 0;                                            // Set minutes to 0
+    timeSek = 0;                                            // Set seconds to 0
+    T = 1;                                                  // T == 1 Buzzer time
   }
 
   if (T == 1){
-    refreshLCD();
-    digitalWrite(buzz, LOW);
-    delay(1000);
-    digitalWrite(buzz, HIGH);
-    T = 0;
+    refreshLCD();               // RefreshLCD to reach 0 time
+    digitalWrite(buzz, LOW);    // Turn on buzzer
+    delay(1000);                // Fish Tacos delay
+    digitalWrite(buzz, HIGH);   // Turn buzzer off
+    T = 0;                      // T == 0 everything is done (Yaaay)
   }
 
-  //Serial.print(H);
+// Buttons to controll points:
+  // Add point to H
   while (digitalRead(buttHUp  ) == HIGH) { if (digitalRead(buttHUp  ) == LOW) {H++; }}
 
+  // Subtract point from H
   while (digitalRead(buttHDown) == HIGH) { if (digitalRead(buttHDown) == LOW) {H--; }}
 
+  // Add point to G
   while (digitalRead(buttGUp  ) == HIGH) { if (digitalRead(buttGUp  ) == LOW) {G++; }}
 
+  // Subtract point from G
   while (digitalRead(buttGDown) == HIGH) { if (digitalRead(buttGDown) == LOW) {G--; }}
 
-  refreshLCD();
-  digitalWrite(buzz, HIGH);
-
+  
   val=digitalRead(buttTime);
   if( (val==HIGH) && (old_val==LOW)) {
     state=1-state;
@@ -208,16 +208,16 @@ void loop(){
 
   old_val=val;
 
-  if (state == 1) {
+  if (state == 1 && T > 0) {
     motor.step(0);
-    timeStart = millis();
-    timeDiff = timeStart - timeStop;           // 
+    timeStart = millis();                      // Time at restart
+    timeDiff = timeStart - timeStop;           // Time differenc between pause and restart timer 
     timeDiff2 = timeDiff;                      // To add time difference 
     T = 2;                                     // T == 2 start countdown
   }
-  if (state == 0) {
+  if (state == 0 && T > 0) {
     motor.step(time);
-    timeStop = millis() - timeDiff2;           // Save current time minus old time differen
+    timeStop = millis() - timeDiff2;           // Time at pause minus old difference
 
     // Prints time on lcd before start
     if (T == 3){                               // T == 3 timer not started
