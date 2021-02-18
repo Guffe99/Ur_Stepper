@@ -45,8 +45,8 @@ unsigned long timeSek;
 
 // Define LCD-monitor and stepper motor
 int steps = time;
-SteSteppermotor = Stepper(steps, ls, ts, rs, bs);
-Steppermotor.setSpeed(1/time);
+Stepper motor = Stepper(steps, ls, ts, rs, bs);
+motor.setSpeed(1/time);
 LiquidCrystal lcd(pinRS, pinEnable, pinD4, pinD5, pinD6, pinD7);
 
 void setup(){
