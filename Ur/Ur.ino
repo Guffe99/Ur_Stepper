@@ -46,7 +46,6 @@ unsigned long timeSek;
 // Define LCD-monitor and stepper motor
 int steps = time;
 Stepper motor = Stepper(steps, ls, ts, rs, bs);
-motor.setSpeed(1/time);
 LiquidCrystal lcd(pinRS, pinEnable, pinD4, pinD5, pinD6, pinD7);
 
 void setup(){
@@ -72,7 +71,7 @@ void setup(){
   Serial.begin(9600);
 
   // Set the speed of the stepper motor
-  motor.setSpeed(5);
+  motor.setSpeed(1/time);
 
   // Set up the LCD's number of columns and rows:
 
