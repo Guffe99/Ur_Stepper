@@ -40,7 +40,7 @@ int val=0;
 int old_val=0;
 int state=0;
 int time;
-
+int TS = 1;
 
 long timeMin;
 long timeSek;
@@ -208,11 +208,12 @@ void loop(){
     state=1-state;}
     old_val=val;
   if (state==1) {
-    motor.step(time);}
-    else {
-      motor.step(0);
-
-
+    motor.step(time);
+    
+  }  
+  else {
+    motor.step(0);
+    
   }
 }
 /*
