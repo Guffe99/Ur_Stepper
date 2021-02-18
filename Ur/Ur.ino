@@ -223,6 +223,7 @@ void loop(){
       lcd.print("00");
       millisDiff = millis();                   // Saves time from program start until start timer
     }
+
     // Print minutes when time eequal/over 100
     if (T == 3 && time >= 100){                
       lcd.setCursor(5,0);
