@@ -1,53 +1,46 @@
 //Include Stepper Motor and LCD libraries
-#include <Stepper.h>
+#include <Stepper.h>                         // Include libraries
 #include <LiquidCrystal.h>
-#define seconds() (millis()/1000)
+#define seconds() (millis()/1000)           // Define seconds() variable
 
-// Define pins
-#define buzz 4
-#define buttTime 7
-#define pinRS 9
-#define bs 10
-#define rs 11
-#define ts 12
-#define ls 13
-#define pinD4 8
+// Define pins 2-13
+const int buttGUp = 2;                      // Button - Guest team point +1
+const int buttHUp = 3;                      // Button - Home team point +1
+#define buzz 4                              // Buzzer
+const int buttGDown=5;                      // Button - Guest team point -1
+const int buttHDown=6;                      // Button - Home team point -1
+#define buttTime 7                          // Time / stop button
+#define pinD4 8                             // Data pin 4
+#define pinRS  9im                          // Register Select
+#define bs 10                               // Bottom side of Stepper motor
+#define rs 11                               // Right side of Stepper motor
+#define ts 12                               // Top side of Stepper motor
+#define ls 13                               // Left side of Stepper motor
+
 
 // Hack some analog pins and stuff
-#define pinPot A0
-#define pinD5 A1
+#define pinPot A0                           // Potentiometer pin
+#define pinD5 A1                            // Data pin 5-7
 #define pinD6 A2
 #define pinD7 A3
-#define pinEnable A4
+#define pinEnable A4                        // Enable pin for LCD
 
 // Define variables
-const int buttGUp = 2;
-const int buttHUp = 3;
-const int buttGDown=5;
-const int buttHDown=6;
-int speed = 5;
-int buttonPrevHUp = LOW;
-int buttonPrevHDown = LOW;
-int buzzCheck = 0;
+float potvalue = 0;                         // Potentiometer value
+int H = 0;                                  // Home team points
+int G = 0;                                  // Guest team points
+int T = 2;                                  // Time variable
+int val=0;                                  // Value used for buttTime
+int old_val=0;                              // Old comparison value that works with val
+int state=0;                                // buttTime state variable
+int time;                                   // Potentiometer time set
 
-int buttonPrevGUp = LOW;
-int buttonPrevGDown = LOW;
-float potvalue = 0;
-int H = 0;
-int G = 0;
-int T = 2;
-int val=0;
-int old_val=0;
-int state=0;
-int time;
-int TS = 1;
-
-long timeMin;
-long timeSek;
+long timeMin;                               // Minutes left on counter
+long timeSek;                               // Seconds left on counter
 
 // Define LCD-monitor and stepper motor
-int steps = time;
-Stepper motor = Stepper(steps, ls, ts, rs, bs);
+int steps = time;                                                   // Number of steps
+Stepper motor = Stepper(steps, ls, rs, ts, bs);                     // Define
 LiquidCrystal lcd(pinRS, pinEnable, pinD4, pinD5, pinD6, pinD7);
 
 void setup(){
@@ -209,11 +202,11 @@ void loop(){
     old_val=val;
   if (state==1) {
     motor.step(time);
-    
-  }  
+
+  }
   else {
     motor.step(0);
-    
+
   }
 }
 /*
