@@ -66,6 +66,7 @@ void setup(){
   pinMode(pinD7, OUTPUT);
   lcd.begin(16, 2);                      // LCD begin
 
+  digitalWrite(buzz, HIGH);              // Turn buzzer off
   Serial.begin(9600);                    // Always has been...
   // Set the speed of the stepper motor
   motor.setSpeed(1/time);
@@ -155,7 +156,7 @@ void refreshLCD()                          // Define refreshLCD() function
 
 void loop(){
   refreshLCD();                      // RefreshLCD() function is called
-
+  
   //Get the desired time in minutes from the potentiometer.
   //And calculate the seconds.
   int potValue = analogRead(pinPot);
