@@ -11,7 +11,7 @@ const int buttGDown=5;                                    // Button - Guest team
 const int buttHDown=6;                                    // Button - Home team point -1
 #define buttTime 7                                        // Time / stop button
 #define pinD4 8                                           // Data pin 4
-#define pinRS  9                                          // Register Select
+#define pinRS 9                                           // Register Select
 #define bs 10                                             // Bottom side of Stepper motor
 #define rs 11                                             // Right side of Stepper motor
 #define ts 12                                             // Top side of Stepper motor
@@ -168,10 +168,6 @@ void loop(){
     timeSek = sek - seconds();
     timeMin = floor((sek-seconds())/60);
   }
-
-  //Serial.println(timeMin);
-  //Serial.println(timeSek - 60 * timeMin);
-  //Serial.println(T);
 
   if (timeMin < 1 && timeSek < 1 && T == 2){                // Check if timer is 0:00
     timeMin = 0;                                            // Set minutes to 0
