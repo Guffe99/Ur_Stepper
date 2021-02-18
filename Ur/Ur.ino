@@ -205,14 +205,14 @@ void loop(){
   old_val=val;
 
   if (state == 1 && T > 0) {
-    motor.step(0);
+    motor.step(0);                             // Stop stepper motor
     timeStart = millis();                      // Time at restart
-    timeDiff = timeStart - timeStop;           // Time differenc between pause and restart timer
+    timeDiff = timeStart - timeStop;           // Time differene between pause and restart timer
     timeDiff2 = timeDiff;                      // To add time difference
     T = 2;                                     // T == 2 start countdown
   }
   if (state == 0 && T > 0) {
-    motor.step(time);
+    motor.step(time);                          // Stepper motor takes time amount of steps (time being the minutes set with potentiometer)
     timeStop = millis() - timeDiff2;           // Time at pause minus old difference
 
     // Prints time on lcd before start
