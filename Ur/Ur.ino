@@ -34,13 +34,13 @@ int buttonPrevGUp = LOW;
 int buttonPrevGDown = LOW;
 float potvalue = 0;
 int H = 0;
-int G = 100;
-int T = 1;
+int G = 0;
+int T = 2;
 int time;
 
 
-unsigned long timeMin;
-unsigned long timeSek;
+long timeMin;
+long timeSek;
 
 // Define LCD-monitor and stepper motor
 int steps = time;
@@ -66,7 +66,8 @@ void setup(){
   pinMode(pinD6, OUTPUT);
   pinMode(pinD7, OUTPUT);
   lcd.begin(16, 2);
-
+  
+  digitalWrite(buzz, HIGH);
   Serial.begin(9600);
 
   // Set the speed of the stepper motor
@@ -153,8 +154,7 @@ void refreshLCD()
 
 void loop(){
   refreshLCD();
-  digitalWrite(buzz, HIGH);
-
+  
   //Get the desired time in minutes from the potentiometer.
   //And calculate the seconds.
   int potValue = analogRead(pinPot);
@@ -163,7 +163,7 @@ void loop(){
   int sek = 60 * min;
 
   //As long as marker (T) is one the time is updated
-  if (T == 1){
+  if (T == 2){
     timeSek = sek - seconds();
     timeMin = floor((sek-seconds())/60);
   }
@@ -174,9 +174,17 @@ void loop(){
 
   //When the time reaches "0:00", T gets changed and
   //the time doesn't update anymore. (To avoid underflow)
-  if (timeMin < 1 && timeSek < 1){
+  if (timeMin < 1 && timeSek < 1 && T == 2){
     timeMin = 0;
     timeSek = 0;
+    T = 1;
+  }
+  
+  if (T == 1){
+    refreshLCD();
+    digitalWrite(buzz, LOW);
+    delay(1000);
+    digitalWrite(buzz, HIGH);
     T = 0;
   }
 
