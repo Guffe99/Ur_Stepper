@@ -43,7 +43,7 @@ long timeSek;                               // Seconds left on counter
 
 // Define LCD-monitor and stepper motor
 int steps = time;                                                   // Number of steps
-Stepper motor = Stepper(steps, ts,rs, ls, bs);                     // Define motor
+Stepper motor = Stepper(steps, ts,rs, ls, bs);                      // Define motor
 LiquidCrystal lcd(pinRS, pinEnable, pinD4, pinD5, pinD6, pinD7);    // Define LCD
 
 void setup(){
@@ -66,23 +66,21 @@ void setup(){
   pinMode(pinD7, OUTPUT);
   lcd.begin(16, 2);                      // LCD begin
 
-  digitalWrite(buzz, HIGH);              // Buzz
-  Serial.begin(9600);
-  int hk = 1/time;
+  Serial.begin(9600);                    // Always has been...
   // Set the speed of the stepper motor
-  motor.setSpeed(2453241245);
+  motor.setSpeed(1/time);
 
   // Set up the LCD's number of columns and rows:
 
   // Print a message to the LCD.
 }
 //Updates the LCD with the correct time and points
-void refreshLCD()
+void refreshLCD()                          // Define refreshLCD() function
   {
-  lcd.setCursor(0,0);
+  lcd.setCursor(0,0);                      // String is written on the first line
   lcd.print("Tid:");
 
-  if (T < 3){
+  if (T < 3){                              // Conditional statements checking current Time State
     if (timeMin >= 100){
       lcd.setCursor (5,0);
     }
@@ -142,19 +140,21 @@ void refreshLCD()
     lcd.print(" ");
   }
 
-  lcd.setCursor (0,1);
-  lcd.print("H:");
+  // Two sentences removing unused numbers end here
+
+  lcd.setCursor (0,1);                 // Scores of both teams are written every time the refreshLCD()
+  lcd.print("H:");                     // -function is called. This happens on the 2nd line of the LCD
   lcd.setCursor (2,1);
   lcd.print(H);
   lcd.setCursor (6,1);
   lcd.print("G:");
   lcd.setCursor (8,1);
   lcd.print(G);
-  delay(40);
+  delay(40);                          // 40 millisecond delay to prevent frequent glitching on LCD
 }
 
 void loop(){
-  refreshLCD();
+  refreshLCD();                      // RefreshLCD() function is called
 
   //Get the desired time in minutes from the potentiometer.
   //And calculate the seconds.
@@ -196,7 +196,7 @@ void loop(){
   // Subtract point from G
   while (digitalRead(buttGDown) == HIGH) { if (digitalRead(buttGDown) == LOW) {G--; }}
 
-  
+
   val=digitalRead(buttTime);
   if( (val==HIGH) && (old_val==LOW)) {
     state=1-state;
@@ -207,8 +207,8 @@ void loop(){
   if (state == 1 && T > 0) {
     motor.step(0);
     timeStart = millis();                      // Time at restart
-    timeDiff = timeStart - timeStop;           // Time differenc between pause and restart timer 
-    timeDiff2 = timeDiff;                      // To add time difference 
+    timeDiff = timeStart - timeStop;           // Time differenc between pause and restart timer
+    timeDiff2 = timeDiff;                      // To add time difference
     T = 2;                                     // T == 2 start countdown
   }
   if (state == 0 && T > 0) {
