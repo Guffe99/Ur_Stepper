@@ -212,20 +212,21 @@ void loop(){
   if (state == 1) {
     motor.step(0);
     timeStart = millis();
-    timeDiff = timeStart - timeStop;
-    timeDiff2 = timeDiff;
-    T = 2;
+    timeDiff = timeStart - timeStop;           // 
+    timeDiff2 = timeDiff;                      // To add time difference 
+    T = 2;                                     // T == 2 start countdown
   }
   if (state == 0) {
     motor.step(time);
-    timeStop = millis() - timeDiff2;
+    timeStop = millis() - timeDiff2;           // Save current time minus old time differen
 
-    if (T == 3){
+    // Prints time on lcd before start
+    if (T == 3){                               // T == 3 timer not started
       lcd.setCursor (8,0);
       lcd.print(":");
       lcd.setCursor (9,0);
       lcd.print("00");
-      millisDiff = millis();
+      millisDiff = millis();                   // Saves time from program start until start timer
     }
     if (T == 3 && time >= 100){
       lcd.setCursor(5,0);
