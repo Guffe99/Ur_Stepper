@@ -17,7 +17,6 @@ const int buttHDown=6;                                    // Button - Home team 
 #define ts 12                                             // Top side of Stepper motor
 #define ls 13                                             // Left side of Stepper motor
 
-
 // Hack some analog pins and stuff
 #define pinPot A0                           // Potentiometer pin
 #define pinD5 A1                            // Data pin 5-7
@@ -29,23 +28,23 @@ const int buttHDown=6;                                    // Button - Home team 
 float potvalue = 0;                         // Potentiometer value
 int H = 0;                                  // Home team points
 int G = 0;                                  // Guest team points
-int T = 3;                                  // Time variable
+int T = 3;                                  // Time stage identifier
 int val=0;                                  // Value used for buttTime
 int old_val=0;                              // Old comparison value that works with val
 int state=0;                                // buttTime state variable
 int time;                                   // Potentiometer time set
-int timeStop = 0;
-int timeStart = 0;
-int timeDiff = 0;
-int timeDiff2 = 0;
-int millisDiff = 0;
+int timeStop = 0;                           // Save current time in variable
+int timeStart = 0;                          // Save start time
+int timeDiff = 0;                           // Timestop - timestart
+int timeDiff2 = 0;                          // Save current timeDiff in variable
+int millisDiff = 0;                         // Time between program start and timer start
 long timeMin;                               // Minutes left on counter
 long timeSek;                               // Seconds left on counter
 
 // Define LCD-monitor and stepper motor
 int steps = time;                                                   // Number of steps
-Stepper motor = Stepper(steps, ls, rs, ts, bs);                     // Define
-LiquidCrystal lcd(pinRS, pinEnable, pinD4, pinD5, pinD6, pinD7);
+Stepper motor = Stepper(steps, ls, rs, ts, bs);                     // Define motor
+LiquidCrystal lcd(pinRS, pinEnable, pinD4, pinD5, pinD6, pinD7);    
 
 void setup(){
   pinMode(buttHDown, INPUT);
