@@ -226,17 +226,17 @@ void loop(){
     }
 
     // Print minutes when time eequal/over 100
-    if (T == 3 && time >= 100){                
+    if (T == 3 && time >= 100){
       lcd.setCursor(5,0);
       lcd.print(time);
     }
     // Print minutes between 99 and 10
-    if (T == 3 && time < 100 && time >= 10){   
+    if (T == 3 && time < 100 && time >= 10){
       lcd.setCursor(6,0);
       lcd.print(time);
     }
     // Print minutes under 10
-    if (T == 3 && time > 10){                 
+    if (T == 3 && time > 10){
       lcd.setCursor(7,0);
       lcd.print(time);
     }
