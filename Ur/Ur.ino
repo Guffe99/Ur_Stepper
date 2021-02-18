@@ -36,6 +36,9 @@ float potvalue = 0;
 int H = 0;
 int G = 0;
 int T = 2;
+int val=0;
+int old_val=0;
+int state=0;
 int time;
 
 
@@ -66,7 +69,7 @@ void setup(){
   pinMode(pinD6, OUTPUT);
   pinMode(pinD7, OUTPUT);
   lcd.begin(16, 2);
-  
+
   digitalWrite(buzz, HIGH);
   Serial.begin(9600);
 
@@ -154,7 +157,7 @@ void refreshLCD()
 
 void loop(){
   refreshLCD();
-  
+
   //Get the desired time in minutes from the potentiometer.
   //And calculate the seconds.
   int potValue = analogRead(pinPot);
@@ -179,7 +182,7 @@ void loop(){
     timeSek = 0;
     T = 1;
   }
-  
+
   if (T == 1){
     refreshLCD();
     digitalWrite(buzz, LOW);
@@ -200,12 +203,16 @@ void loop(){
   refreshLCD();
   digitalWrite(buzz, HIGH);
 
-  int buttonstate = digitalRead(buttHDown);
-  if (digitalRead(buttTime) == HIGH) {
-    int k = 1;
-  }
-  if (k == 1) {
-    motor.step(time);
+  val=digitalRead(buttTime);
+  if( (val==HIGH) && (old_val==LOW)) {
+    state=1-state;}
+    old_val=val;
+  if (state==1) {
+    motor.step(time);}
+    else {
+      motor.step(0);
+
+
   }
 }
 /*
