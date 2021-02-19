@@ -205,31 +205,45 @@ void loop(){
 
   val=digitalRead(buttTime);
   if( (val==HIGH) && (old_val==LOW)) {
-    state=1-state;}
-    old_val=val;
-  if (state==1) {
-    motor.step(time);
-
+    state=1-state;
   }
-  else {
-    motor.step(0);
 
+  old_val=val;
+
+  if (state == 1 && T > 0) {
+    motor.step(0);                             // Stop stepper motor
+    timeStart = millis();                      // Time at restart
+    timeDiff = timeStart - timeStop;           // Time differene between pause and restart timer
+    timeDiff2 = timeDiff;                      // To add time difference
+    T = 2;                                     // T == 2 start countdown
+  }
+  if (state == 0 && T > 0) {
+    motor.step(time);                          // Stepper motor takes time amount of steps (time being the minutes set with potentiometer)
+    timeStop = millis() - timeDiff2;           // Time at pause minus old difference
+
+  // Prints time on lcd before start
+    if (T == 3){                               // T == 3 timer not started
+      lcd.setCursor (8,0);
+      lcd.print(":");
+      lcd.setCursor (9,0);
+      lcd.print("00");
+      millisDiff = millis();                   // Saves time from program start until start timer
+    }
+
+    // Print minutes when time eequal/over 100
+    if (T == 3 && time >= 100){
+      lcd.setCursor(5,0);
+      lcd.print(time);
+    }
+    // Print minutes between 99 and 10
+    if (T == 3 && time < 100 && time >= 10){
+      lcd.setCursor(6,0);
+      lcd.print(time);
+    }
+    // Print minutes under 10
+    if (T == 3 && time > 10){
+      lcd.setCursor(7,0);
+      lcd.print(time);
+    }
   }
 }
-/*
-  motor.setSpeed(speed);
-  int steps = Serial.parseInt();
-  motor.step(steps);
-  // Serial.println(steps);
-  // Fix dis
-  if(pinPot == HIGH){
-    speed =+ 5;
-  }
-  delay(5);
-
-  if (sek == 0 && min == 0 && buzzCheck == 0){
-    digitalWrite(buzz, LOW);
-    delay(1000);
-    digitalWrite(buzz, HIGH);}
-    buzzCheck = 1;
-  }*/
