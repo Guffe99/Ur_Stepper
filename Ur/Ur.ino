@@ -21,29 +21,21 @@
 #define pinEnable A4
 
 // Define variables
-const int buttGUp = 2;
-const int buttHUp = 3;
-const int buttGDown=5;
-const int buttHDown=6;
-int speed = 5;
-int buttonPrevHUp = LOW;
-int buttonPrevHDown = LOW;
-int buzzCheck = 0;
-
-int buttonPrevGUp = LOW;
-int buttonPrevGDown = LOW;
-float potvalue = 0;
-int H = 0;
-int G = 0;
-int T = 2;
-int val=0;
-int old_val=0;
-int state=0;
-int time;
-int TS = 1;
-
-long timeMin;
-long timeSek;
+float potvalue = 0;                         // Potentiometer value
+int H = 0;                                  // Home team points
+int G = 0;                                  // Guest team points
+int T = 3;                                  // Time stage identifier
+int val=0;                                  // Value used for buttTime
+int old_val=0;                              // Old comparison value that works with val
+int state=0;                                // buttTime state variable
+int time;                                   // Potentiometer time set
+int timeStop = 0;                           // Save current time in variable
+int timeStart = 0;                          // Save start time
+int timeDiff = 0;                           // Timestop - timestart
+int timeDiff2 = 0;                          // Save current timeDiff in variable
+int millisDiff = 0;                         // Time between program start and timer start
+long timeMin;                               // Minutes left on counter
+long timeSek;                               // Seconds left on counter
 
 // Define LCD-monitor and stepper motor
 int steps = time;
