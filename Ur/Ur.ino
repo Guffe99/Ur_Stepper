@@ -1,7 +1,7 @@
 //Include Stepper Motor and LCD libraries
 #include <Stepper.h>
 #include <LiquidCrystal.h>
-#define seconds() (millis()/1000)
+#define seconds() ((millis()-timeDiff-millisDiff)/1000)   // Define seconds() variable
 
 // Define pins
 #define buzz 4
